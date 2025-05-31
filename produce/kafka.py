@@ -175,6 +175,12 @@ class Producer:
             }
 
             location_keys = list(locations.keys())
+            test_message = sample_data.copy()
+            test_message["lat"] = 0.12
+            test_message["lon"] = 0.13
+            test_message["location"] = "PMBI"
+            test_message["id"] = 9999
+            test_message["source_dt"] = int(datetime.now().timestamp() * 1_000_000)
             byte_size_per_data = len(json.dumps(test_message).encode('utf-8'))
 
             start_time = time.time()
