@@ -138,6 +138,14 @@ class Producer:
         try:
             self.logger.info(f" [*] Producing {n} test messages...")
 
+            locations = {
+                "TNTI": ("0.7718", "127.3667"),
+                "PMBI": ("-2.9024", "104.6993"),
+                "BKB": ("-1.1073", "116.9048"),
+                "SOEI": ("-9.7553", "124.2672"),
+                "MMRI": ("-8.6357", "122.2376"),
+            }
+
             sample_data = {
                 "coord": {"lon": 110.2973, "lat": -7.9923},
                 "weather": [{"id": 500, "main": "Rain", "description": "light rain", "icon": "10n"}],
@@ -166,15 +174,22 @@ class Producer:
                 "cod": 200
             }
 
-            test_message = sample_data.copy()
-            test_message["id"] = 1
-            test_message["source_dt"] = int(datetime.now().timestamp() * 1_000_000)
+            location_keys = list(locations.keys())
             byte_size_per_data = len(json.dumps(test_message).encode('utf-8'))
 
             start_time = time.time()
 
             for i in range(1, n + 1):
                 message = sample_data.copy()
+                message["coord"] = message["coord"].copy()
+                message["sys"] = message["sys"].copy()
+
+                loc = location_keys[(i - 1) % len(location_keys)]
+                lat, lon = locations[loc]
+
+                message["coord"]["lat"] = float(lat)
+                message["coord"]["lon"] = float(lon)
+                message["location"] = loc
                 message["id"] = i
                 message["source_dt"] = int(datetime.now().timestamp() * 1_000_000)
                 self._instance.send(self._kafka_topic, value=message)
