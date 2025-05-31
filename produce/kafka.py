@@ -193,7 +193,6 @@ class Producer:
                 message["id"] = i
                 message["source_dt"] = int(datetime.now().timestamp() * 1_000_000)
                 self._instance.send(self._kafka_topic, value=message)
-                # self.logger.info(f"[{i}/{n}] Sent message with id={i}")
 
             end_time = time.time()
 
