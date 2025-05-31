@@ -193,8 +193,10 @@ class Producer:
                 loc = location_keys[(i - 1) % len(location_keys)]
                 lat, lon = locations[loc]
 
-                message["coord"]["lat"] = float(lat)
-                message["coord"]["lon"] = float(lon)
+                # message["coord"]["lat"] = float(lat)
+                # message["coord"]["lon"] = float(lon)
+                message["lat"] = message["coord"]["lat"]
+                message["lon"] = message["coord"]["lon"]
                 message["location"] = loc
                 message["id"] = i
                 message["source_dt"] = int(datetime.now().timestamp() * 1_000_000)
