@@ -101,6 +101,7 @@ from datetime import datetime
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 from config.logging import Logger
+
 logging.basicConfig(level=logging.INFO) 
 logger = logging.getLogger(__name__)
 
