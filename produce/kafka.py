@@ -186,11 +186,11 @@ class Producer:
             total_bytes = byte_size_per_data * n
             throughput = total_bytes / total_time if total_time > 0 else 0
 
-            self.logger.info(f"[Metric] Byte size per message    : {byte_size_per_data} bytes")
-            self.logger.info(f"[Metric] Total messages produced  : {n}")
-            self.logger.info(f"[Metric] Total data size produced : {total_bytes} bytes")
-            self.logger.info(f"[Metric] Time taken to produce    : {total_time:.4f} seconds")
-            self.logger.info(f"[Metric] Throughput               : {throughput:.2f} bytes/sec")
+            self.logger.info(f"[Metric] Byte size per message               : {byte_size_per_data} bytes")
+            self.logger.info(f"[Metric] Total messages produced to Kafka    : {n}")
+            self.logger.info(f"[Metric] Total data size produced to Kafka   : {total_bytes} bytes")
+            self.logger.info(f"[Metric] Time taken to produce to Kafka      : {total_time:.4f} seconds")
+            self.logger.info(f"[Metric] Kafka Producer Throughput           : {throughput:.2f} bytes/sec")
 
             return n
         except Exception as e:
